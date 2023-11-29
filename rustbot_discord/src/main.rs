@@ -27,20 +27,8 @@ impl EventHandler for Handler {}
 #[tokio::main]
 async fn main() {
     // Connect to the database.
-    let (db_client2, connection2) = tokio_postgres::connect(
-        "host=localhost port=5432 dbname=rustbot password=Bean1! user=postgres",
-        NoTls,
-    )
-    .await
-    .unwrap();
     // The connection object performs the actual communication with the database,
     // so spawn it off to run on its own.
-    tokio::spawn(async move {
-        if let Err(e) = connection2.await {
-            eprintln!("connection error: {}", e);
-        }
-    });
-
     // Configure the client with the bot's prefix and commands
     let framework = StandardFramework::new()
         .group(&GENERAL_GROUP)
@@ -58,10 +46,7 @@ async fn main() {
         .await
         .expect("Error creating client");
 
-    {
-        let data = &mut client.data.write().await;
-        data.insert::<MyClient>(db_client2);
-    }
+
 
     if let Ok(contents) = fs::read_to_string("update.txt") {
         let parts: Vec<&str> = contents.split_whitespace().collect();
