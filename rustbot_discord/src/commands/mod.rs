@@ -15,7 +15,6 @@
 //! * poll - Creates a poll
 //! * coinflip - Flips a coin
 
-pub mod c;
 pub mod coinflip;
 pub mod echo;
 pub mod pfp;
@@ -27,18 +26,18 @@ pub mod stats;
 pub mod status;
 pub mod test;
 pub mod update;
-pub mod ustatus;
 pub mod uwu;
+pub mod idk;
 
 use self::{
-    c::*, coinflip::*, echo::*, pfp::*, ping::*, play::*, poll::*, stats::*, status::*, test::*,
-    update::*, ustatus::*, uwu::*,
+    coinflip::*, echo::*, pfp::*, ping::*, play::*, poll::*, stats::*, status::*, test::*,
+    update::*, uwu::*, idk::*,
 };
 
 use serenity::framework::standard::macros::group;
 
 #[group]
 #[commands(
-    ping, test, echo, status, update, status, ustatus, stats, pfp, uwu, play, poll, coinflip, c
+    ping, test, echo, status, update, status, stats, pfp, uwu, play, poll, coinflip, idk
 )] // Add other commands here
 struct General;
